@@ -23,8 +23,15 @@
                  [com.google.appengine/appengine-api-1.0-sdk "1.8.3"]
                  [com.google.appengine/appengine-api-labs "1.8.3"]
                  [com.google.appengine/appengine-tools-sdk "1.8.3"]
+                 [com.google.appengine/appengine-remote-api "1.8.3"]
                  [com.google.appengine/appengine-api-stubs "1.8.3"]
                  [com.google.appengine/appengine-testing "1.8.3"]
                  ;; for the Leiningen plugin
                  [me.raynes/fs "1.4.4"]]
+  :profiles {:test { 
+                :dependencies [[org.mortbay.jetty/jetty-util "[6.0.0,)"]
+                               [org.mortbay.jetty/jetty "[6.0.0,)"]
+                               ]
+                  }
+             }
             )

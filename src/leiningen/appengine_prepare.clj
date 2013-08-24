@@ -16,8 +16,15 @@
     (println "Copying" file-path "to" (.getPath dir))
     (fs/copy file dest-file)))
 
+(def ^{:private true} appengine-profile { :exclusions [
+                 ['com.google.appengine/appengine-api-stubs]
+                 ['com.google.appengine/appengine-testing]
+                                                       ]})
+
 (defn appengine-prepare [project]
-  (let [project (lein-project/set-profiles project (dissoc (:profiles project) :dev) [:dev])
+  (let [gae-profile (get-in project [:profiles :appengine-magic] appengine-profile)
+        project (lein-project/set-profiles project (dissoc (:profiles project) :dev) [:dev])
+        project (lein-project/merge-profiles project [gae-profile])
         prj-application (or (:appengine-application project) (:name project))
         prj-display-name (or (:appengine-display-name project) (:name project))
         prj-servlet (or (:appengine-entry-servlet project) "app_servlet")
